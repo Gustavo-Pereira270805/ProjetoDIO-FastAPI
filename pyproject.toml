@@ -27,7 +27,7 @@ taskipy = "^1.14.1"
 
 [tool.ruff]
 line-length = 79
-extend-exclude = ['migrations']
+exclude = [".venv", "venv", ".git", "alembic"]
 [tool.ruff.lint]
 preview = true
 select = [
@@ -37,6 +37,10 @@ select = [
     "W",
     "PL",
     "PT"]
+ignore = ["E501"]
+
+[tool.ruff.format]
+quote-style = "single"
 
 [tool.taskipy.tasks]
 lint = "ruff check"

@@ -1,12 +1,14 @@
 from fastapi import FastAPI
 
-app = FastAPI(title = "ProjetoDIO")
+app = FastAPI(title='ProjetoDIO')
 
-@app.get("/")
+
+@app.get('/')
 def read_root():
-    return {"message": "Hello World"}
+    return {'message': 'Hello World'}
 
-if __name__ == "__main__":
+
+if __name__ == '__main__':
     import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host='0.0.0.0', port=8000)
