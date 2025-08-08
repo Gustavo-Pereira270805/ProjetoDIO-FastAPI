@@ -43,23 +43,25 @@ class AtletaModel(BaseModel):
         back_populates='atletas'
     )
 
-    class CategoriaModel(BaseModel):
-        __tablename__ = 'categorias'
-        nome: Mapped[str] = mapped_column(
-            String(50), unique=True, nullable=False
-        )
-        atletas: Mapped[list['AtletaModel']] = relationship(
-            back_populates='categoria'
-        )
 
-    class CentroModel(BaseModel):
-        __tablename__ = 'centros'
-        nome: Mapped[str] = mapped_column(
-            String(50), unique=True, nullable=False
-        )
-        endereco: Mapped[str] = mapped_column(String(70), nullable=False)
-        proprietario: Mapped[str] = mapped_column(String(30), nullable=False)
+class CategoriaModel(BaseModel):
+    __tablename__ = 'categorias'
+    nome: Mapped[str] = mapped_column(
+        String(50), unique=True, nullable=False
+    )
+    atletas: Mapped[list['AtletaModel']] = relationship(
+        back_populates='categoria'
+    )
 
-        atletas: Mapped[list['AtletaModel']] = relationship(
-            back_populates='centro'
-        )
+
+class CentroModel(BaseModel):
+    __tablename__ = 'centros'
+    nome: Mapped[str] = mapped_column(
+        String(50), unique=True, nullable=False
+    )
+    endereco: Mapped[str] = mapped_column(String(70), nullable=False)
+    proprietario: Mapped[str] = mapped_column(String(30), nullable=False)
+
+    atletas: Mapped[list['AtletaModel']] = relationship(
+        back_populates='centro'
+    )

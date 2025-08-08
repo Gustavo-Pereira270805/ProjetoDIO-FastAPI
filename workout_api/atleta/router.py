@@ -64,5 +64,5 @@ async def delete(id: UUID4, db_session : DatabaseDependency) -> None:
     try: 
         await atleta_controller.delete(id = id, db_session = db_session)
     except Exception as e:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'atleta {id} não encontrado'))
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'atleta {id} não encontrado')
     

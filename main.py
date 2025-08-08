@@ -1,11 +1,9 @@
 from fastapi import FastAPI
 
+from workout_api.routers.routers import api_router
+
 app = FastAPI(title='ProjetoDIO')
-
-
-@app.get('/')
-def read_root():
-    return {'message': 'Hello World'}
+app.include_router(api_router)
 
 
 if __name__ == '__main__':
