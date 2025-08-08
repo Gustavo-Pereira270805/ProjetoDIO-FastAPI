@@ -63,5 +63,5 @@ class CentroModel(BaseModel):
     proprietario: Mapped[str] = mapped_column(String(30), nullable=False)
 
     atletas: Mapped[list['AtletaModel']] = relationship(
-        back_populates='centro'
+        back_populates='centro_treinamento'
     )
