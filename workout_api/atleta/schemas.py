@@ -5,6 +5,7 @@ from pydantic import UUID4, BaseModel, ConfigDict, Field
 from workout_api.categoria.schemas import CategoriaOut
 from workout_api.centro_treinamento.schemas import CentroOut
 
+
 class AtletaSchema(BaseModel):
     nome: Annotated[str, Field(description="Nome do atleta", example="Gustavo", max_length=50)]
     cpf: Annotated[str, Field(description='cpf do atleta', example='12345678901', max_length=11)]
@@ -15,9 +16,8 @@ class AtletaSchema(BaseModel):
 
 
 class AtletaIn(AtletaSchema):
-    categoria : Annotated[str, Field(description="Categoria do atleta", example='judo', max_length=15)]
-    centro_treinamento : Annotated[str, Field(description="Centro de treinamento do atleta", example='centro', max_length=20)]
-
+    categoria: Annotated[str, Field(description="Categoria do atleta", example='judo', max_length=15)]
+    centro_treinamento: Annotated[str, Field(description="Centro de treinamento do atleta", example='centro', max_length=20)]
 
 
 class AtletaOut(AtletaIn):
@@ -25,7 +25,7 @@ class AtletaOut(AtletaIn):
     pk_id: Annotated[UUID4, Field(description="Id do atleta(UUID)")]
     categoria_id: Annotated[CategoriaOut, Field(description="Categoria do atleta")]
     centro_treinamento: Annotated[CentroOut, Field(description="Centro de treinamento do atleta")]
-    
+
     model_config = ConfigDict(from_attributes=True)
 
 
