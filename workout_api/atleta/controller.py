@@ -7,7 +7,11 @@ from sqlalchemy.orm import selectinload
 
 from workout_api.atleta.schemas import AtletaIn, AtletaUpdate
 from workout_api.contrib.dependencies import DatabaseDependency
-from workout_api.contrib.models import AtletaModel, CategoriaModel, CentroModel
+from workout_api.contrib.models import (
+    AtletaModel,
+    CategoriaModel,
+    CentroTreinamentoModel,
+)
 
 
 class AtletaController:
@@ -26,7 +30,7 @@ class AtletaController:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                                 detail=f'categoria {categoria_nome} não encontrada')
 
-        query_centro = select(CentroModel).filter_by(nome=centro_nome)
+        query_centro = select(CentroTreinamentoModel).filter_by(nome=centro_nome)
         result_centro = await db_session.execute(query_centro)
         centro = result_centro.scalar_one_or_none()
 
@@ -34,22 +38,25 @@ class AtletaController:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                                detail=f'centro {centro_nome} não encontrado')
         try:
+
             atleta_data = atleta_in.model_dump(exclude={'categoria', 'centro_treinamento'})
             atleta = AtletaModel(**atleta_data, categoria=categoria, centro_treinamento=centro)
 
             db_session.add(atleta)
             await db_session.commit()
+
             await db_session.refresh(atleta)
         except Exception as e:
+
             raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
 
-        return atleta
+        return await self.get(id=atleta.pk_id, db_session=db_session)
 
     async def get(self, id: UUID4,
                 db_session: DatabaseDependency) -> Optional[AtletaModel]:
 
         query = select(AtletaModel).options(selectinload(AtletaModel.categoria),
-                                            selectinload(AtletaModel.centro_treinamento)).filter_by(id=id)
+                                            selectinload(AtletaModel.centro_treinamento)).filter_by(pk_id=id)
         result = await db_session.execute(query)
         return result.scalar_one_or_none()
 

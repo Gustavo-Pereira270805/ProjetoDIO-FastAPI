@@ -1,8 +1,8 @@
-"""Criação das tabelas iniciais
+"""Recriação das tabelas com nomes corrigidos
 
-Revision ID: 2404839cb7fd
+Revision ID: 7426d76acf3e
 Revises: 
-Create Date: 2025-08-06 13:57:57.085982
+Create Date: 2025-08-13 15:16:02.502758
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '2404839cb7fd'
+revision: str = '7426d76acf3e'
 down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None

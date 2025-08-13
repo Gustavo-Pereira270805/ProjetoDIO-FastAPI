@@ -5,7 +5,7 @@ from workout_api.atleta.controller import AtletaController
 from workout_api.atleta.schemas import AtletaIn, AtletaOut, AtletaUpdate
 from workout_api.contrib.dependencies import DatabaseDependency
 
-router = APIRouter(prefix='/atletas', tags=['atletas'])
+router = APIRouter(tags=['atletas'])
 atleta_controller = AtletaController()
 
 
@@ -26,8 +26,7 @@ async def post(db_session: DatabaseDependency,
         summary='consultar todos os atletas',
         status_code=status.HTTP_200_OK,
         response_model=list[AtletaOut])
-async def query(db_session: DatabaseDependency,
-                atleta_in: AtletaIn = Body(...)):
+async def query(db_session: DatabaseDependency) -> list[AtletaOut]:
     return await atleta_controller.query(db_session=db_session)
 
 
@@ -51,7 +50,7 @@ async def get(id: UUID4, db_session: DatabaseDependency) -> AtletaOut:
               response_model=AtletaOut
 )
 async def patch(id: UUID4, db_session: DatabaseDependency, atleta_up: AtletaUpdate = Body(...)) -> AtletaOut:
-    atleta = await atleta_controller.update(id=id, db_session=db_session, atleta_up=atleta_up)
+    atleta = await atleta_controller.update(id=id, db_session=db_session, atleta_update=atleta_up)
 
     if not atleta:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,

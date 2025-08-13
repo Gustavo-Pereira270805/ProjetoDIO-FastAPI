@@ -8,7 +8,7 @@ from workout_api.categoria.schemas import CategoriaIn, CategoriaOut
 from workout_api.contrib.dependencies import DatabaseDependency
 from workout_api.contrib.models import CategoriaModel
 
-router = APIRouter(prefix='/categorias', tags=['categorias'])
+router = APIRouter(tags=['categorias'])
 categoria_controller = CategoriaController()
 
 

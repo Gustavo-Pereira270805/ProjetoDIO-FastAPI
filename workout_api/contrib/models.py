@@ -37,9 +37,9 @@ class AtletaModel(BaseModel):
     )
 
     centro_treinamento_id: Mapped[int] = mapped_column(
-        ForeignKey('centros.id')
+        ForeignKey('centros_treinamento.id')
     )
-    centro_treinamento: Mapped['CentroModel'] = relationship(
+    centro_treinamento: Mapped['CentroTreinamentoModel'] = relationship(
         back_populates='atletas'
     )
 
@@ -54,8 +54,8 @@ class CategoriaModel(BaseModel):
     )
 
 
-class CentroModel(BaseModel):
-    __tablename__ = 'centros'
+class CentroTreinamentoModel(BaseModel):
+    __tablename__ = 'centros_treinamento'
     nome: Mapped[str] = mapped_column(
         String(50), unique=True, nullable=False
     )
